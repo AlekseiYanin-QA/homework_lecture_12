@@ -1,7 +1,13 @@
-from selene import browser, be, have, by
+from allure_commons.types import Severity
+from selene import browser, have
 from pages.registration_page import RegistrationPage
+import allure
 
-
+@allure.tag('DemoQA')
+@allure.severity(Severity.NORMAL)
+@allure.label('qa_dzen', 'QAauto')
+@allure.feature('Student Registration Form')
+@allure.story('Filling certain user dates')
 def test_positive_form_registration():
     registration_page = RegistrationPage()
     registration_page.open()
