@@ -1,13 +1,24 @@
 import pytest
+
 from selenium import webdriver
-from selene import browser
-from selene.support import webdriver
 from selenium.webdriver.chrome.options import Options
+from selene import browser
 
+from utils import attach
 
+# @pytest.fixture(scope='function', autouse=True)
+# def browser_management():
+#
+#
+#     yield
+#
+#     browser.quit()
 
-@pytest.fixture(scope='function',  autouse=True)
+@pytest.fixture(scope='function', autouse=True)
 def setup_browser(request):
+    browser.config.base_url = 'https://demoqa.com/'
+    browser.config.window_height = 900
+    browser.config.window_width = 1200
     options = Options()
     selenoid_capabilities = {
         "browserName": "chrome",
@@ -24,15 +35,12 @@ def setup_browser(request):
     )
 
     browser.config.driver = driver
-    yield browser
-
-
-@pytest.fixture(scope='function', autouse=True)
-def browser_management():
-    browser.config.base_url = 'https://demoqa.com/'
-    browser.config.window_height = 900
-    browser.config.window_width = 1200
-
     yield
-
     browser.quit()
+
+
+
+
+attach.add_html(browser)
+attach.add_screenshot(browser)
+attach.add_logs(browser)
