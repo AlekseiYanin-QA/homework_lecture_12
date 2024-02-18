@@ -6,6 +6,7 @@ from selene import browser
 
 from utils import attach
 
+
 # @pytest.fixture(scope='function', autouse=True)
 # def browser_management():
 #
@@ -16,7 +17,6 @@ from utils import attach
 
 @pytest.fixture(scope='function', autouse=True)
 def setup_browser(request):
-    browser.config.base_url = 'https://demoqa.com/'
     browser.config.window_height = 900
     browser.config.window_width = 1200
     options = Options()
@@ -25,7 +25,7 @@ def setup_browser(request):
         "browserVersion": "100.0",
         "selenoid:options": {
             "enableVNC": True,
-            "enableVideo": True
+            "enableVideo": False
         }
     }
     options.capabilities.update(selenoid_capabilities)
@@ -37,8 +37,6 @@ def setup_browser(request):
     browser.config.driver = driver
     yield
     browser.quit()
-
-
 
 
 attach.add_html(browser)
