@@ -1,9 +1,7 @@
 import pytest
 from selenium import webdriver
-from selene import browser
-from selene.support import webdriver
 from selenium.webdriver.chrome.options import Options
-
+from selene import browser
 from utils import attach
 
 
@@ -21,13 +19,10 @@ def browser_management(request):
             "enableVideo": True
         }
     }
-
     options.capabilities.update(selenoid_capabilities)
     driver = webdriver.Remote(
-        command_executor=f"https://user1:1234@selenoid.autotests.cloud/wd/hub",
-        options=options
-    )
-
+        command_executor="https://user1:1234@selenoid.autotests.cloud/wd/hub",
+        options=options)
     browser.config.driver = driver
 
     yield
